@@ -1,0 +1,23 @@
+# CMServiceSetting schema
+ 
+# --- !Ups
+
+CREATE TABLE "CMServiceSetting" (
+	"cmServiceName" varchar(255) NOT NULL,
+	"cmServiceValue" varchar(4500) DEFAULT NULL,
+	"createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	"updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	"active" BOOLEAN NOT NULL DEFAULT TRUE ,
+	PRIMARY KEY ("cmServiceName")
+);
+
+CREATE TABLE "User" (
+  "key" SERIAL PRIMARY KEY,
+  "id" CHAR(32) NOT NULL,
+	"name" VARCHAR(255) NOT NULL,
+	"createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	"updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	"active" BOOLEAN NOT NULL DEFAULT TRUE
+);
+ 
+# --- !Downs

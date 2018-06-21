@@ -1,0 +1,56 @@
+
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+GET         /                      controllers.HomeController.index
+# An example controller showing how to use dependency injection
+GET         /count                 controllers.CountController.count
+# An example controller showing how to write asynchronous code
+GET         /message               controllers.AsyncController.message
+
+# Map static resources from the /public folder to the /assets URL path
+#GET         /assets/*file          controllers.Assets.versioned(path="/public", file: Asset)
+#GET         /assets/*file          controllers.Assets.versioned(file)
+
+#->         /security            com.crystalapps.example.backend.routers.SecurityRouter
+#->          /api                com.crystalapps.example.backend.routers.ApiRouter
+#->          /test               com.crystalapps.example.backend.routers.TestRouter
+#->         /oauth               com.crystalapps.example.backend.routers.OAuthRouter
+#->          /                   com.crystalapps.example.backend.routers.TestRouter
+#->         /                    com.crystalapps.example.backend.routers.MainRouter
+# Home page
+#GET           /                            controllers.Application.index
+#DELETE        /cache                       controllers.Application.clearCache
+
+# Security
+#GET           /token                       controllers.SecurityApplication.accessToken()
+#POST          /token                       controllers.SecurityApplication.formToken
+GET         /security/login        com.crystalapps.example.backend.controllers.SecurityApplication.loginPage(redirect:Option[String])
+POST        /security/login        com.crystalapps.example.backend.controllers.SecurityApplication.loginRedirect
+#
+## ServiceSetting
+#GET           /all                         controllers.Application.all()
+#GET           /insert                      controllers.Application.insert(name, value)
+#GET           /remove                      controllers.Application.remove(name)
+#GET           /find                        controllers.Application.find(name)
+
+# ServiceSetting
+#GET           /ServiceSetting              controllers.ServiceSettingApplication.all2()
+#GET           /ServiceSetting/:name        controllers.ServiceSettingApplication.find2(name)
+#POST          /ServiceSetting              controllers.ServiceSettingApplication.insert2()
+#PATCH         /ServiceSetting              controllers.ServiceSettingApplication.update2()
+#DELETE        /ServiceSetting/:name        controllers.ServiceSettingApplication.remove2(name)
+
+# User
+#GET           /User                        controllers.UserApplication.all()
+#GET           /User/all                    controllers.UserApplication.all()
+#GET           /User/insert                 controllers.UserApplication.insert(name)
+#GET           /User/remove                 controllers.UserApplication.remove(name)
+#GET           /User/find                   controllers.UserApplication.find(name)
+
+# Map static resources from the /public folder to the /assets URL path
+#GET         /assets/*file          controllers.Assets.at(path="/public", file)
+# Catch all
+->          /                      com.crystalapps.example.backend.routers.MainRouter

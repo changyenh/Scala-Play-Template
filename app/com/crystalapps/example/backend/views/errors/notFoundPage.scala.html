@@ -1,0 +1,29 @@
+@(statusCode: Int)
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+            <!--IE Compatibility modes-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <!--Mobile first-->
+        <meta serviceName="viewport" content="width=device-width, initial-scale=1">
+        <title>@statusCode</title>
+
+    </head>
+
+    <body class="error">
+        <div class="container">
+            <div class="col-lg-8 col-lg-offset-2 text-center" style="text-align: center">
+                <div class="logo">
+                    <h1>403</h1>
+                </div>
+                <p class="lead text-muted">Oops, an error has occurred. Forbidden!</p>
+                <div class="clearfix"></div>
+            </div>
+                <!-- /.col-lg-8 col-offset-2 -->
+        </div>
+    </body>
+
+</html>

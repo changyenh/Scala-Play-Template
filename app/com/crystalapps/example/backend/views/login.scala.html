@@ -1,0 +1,162 @@
+@import com.crystalapps.example.backend.services.dto.LoginServiceDto.LoginDto
+@import views.html.helper.CSRF
+@import com.crystalapps.example.backend.routers.SecurityRouter
+@(redirectUri: Option[String], router: SecurityRouter)(implicit assetsFinder: AssetsFinder)
+@import helper.form
+@import com.crystalapps.example.backend.routers._
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Login</title>
+        <!--
+        @*<link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("stylesheets/bootstrap-3.3.4.min.css")" />
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.versioned("stylesheets/login-form.css")" />
+        <script type="text/javascript" src="@routes.Assets.versioned("javascripts/jquery-2.1.3.min.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.versioned("javascripts/bootstrap-3.3.4.min.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.versioned("javascripts/login-form.js")"></script>*@
+        -->
+        <link rel="stylesheet" type="text/css" href="@assetsFinder.path("assets/stylesheets/bootstrap-3.3.4.min.css")" />
+        <link rel="stylesheet" type="text/css" href="@assetsFinder.path("assets/stylesheets/login-form.css")" />
+        <script type="text/javascript" src="@assetsFinder.path("assets/javascripts/jquery-2.1.3.min.js")"></script>
+        <script type="text/javascript" src="@assetsFinder.path("assets/javascripts/bootstrap-3.3.4.min.js")"></script>
+        <script type="text/javascript" src="@assetsFinder.path("assets/javascripts/login-form.js")"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div class="panel panel-info" >
+                    <div class="panel-heading">
+                        <div class="panel-title">Sign In</div>
+                        <div id="div-forgot"><a href="#">Forgot password?</a></div>
+                    </div>
+
+                    <div id="panel-body-first" class="panel-body" >
+                        <div id="login-alert" class="alert alert-danger col-sm-12"></div>
+                        @helper.form(CSRF(SecurityApplication.loginRedirect()))
+                        <form id="loginform" class="form-horizontal" role="form" method="POST" action="@routes.SecurityApplication.loginRedirect()">
+
+                            <div class="input-group group1">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="username or email">
+                            </div>
+
+                            <div class="input-group group1">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="login-password" type="password" class="form-control" name="password" placeholder="password">
+                            </div>
+
+
+                            <div class="input-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <!--<input id="login-remember" type="checkbox" name="remember" value="1">-->
+                                        Remember me
+                                    </label>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group group2">
+                                    <!-- Button -->
+
+                                <div class="col-sm-12 controls">
+                                    <input id="btn-login" class="btn btn-success" type="submit" value="Login"/>
+                                    <a id="btn-login" class="btn btn-success">Login  </a>
+                                    <a id="btn-fblogin" class="btn btn-primary">Login with Facebook</a>
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-12 control">
+                                    <div id="div-signup-button" >
+                                        Don't have an account!
+                                        <a href="#" onClick="$('#loginbox').hide();
+                                        $('#signupbox').show()">
+                                            Sign Up Here
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+            <div id="signupbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <div class="panel-title">Sign Up</div>
+                        <div id="div-signinlink"><a id="signinlink" href="#" onclick="showSignUp()">Sign In</a></div>
+                    </div>
+                    <div class="panel-body" >
+                        <form id="signupform" class="form-horizontal" role="form">
+
+                            <div id="signupalert" class="alert alert-danger">
+                                <p>Error:</p>
+                                <span></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="email" class="col-md-3 control-label">Email</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="email" placeholder="Email Address">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="firstname" class="col-md-3 control-label">First Name</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="firstname" placeholder="First Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-md-3 control-label">Last Name</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="lastname" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="col-md-3 control-label">Password</label>
+                                <div class="col-md-9">
+                                    <input type="password" class="form-control" name="passwd" placeholder="Password">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="icode" class="col-md-3 control-label">Invitation Code</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control" name="icode" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                    <!-- Button -->
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button id="btn-signup" type="button" class="btn btn-info"><i class="icon-hand-right"></i>
+                                        &nbsp Sign Up</button>
+                                    <span id="span-or">or</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group group3">
+
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button id="btn-fbsignup" type="button" class="btn btn-primary"><i class="icon-facebook"></i>
+                                          Sign Up with Facebook</button>
+                                </div>
+
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+# --- !Ups
+
+CREATE TABLE "User" (
+	"key" SERIAL PRIMARY KEY,
+	"id" CHAR(32) NOT NULL,
+	"username" VARCHAR(255) NOT NULL,
+	"password" VARCHAR(255) NOT NULL,
+	"name" VARCHAR(255) NOT NULL,
+	"createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	"updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	"active" BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE "oauth_access_token" (
+	"key" SERIAL PRIMARY KEY,
+	"user_id" UUID NOT NULL,
+	"client_id" UUID NOT NULL,
+	"access_token" VARCHAR(255) NOT NULL UNIQUE,
+	"refresh_token" VARCHAR(255) UNIQUE,
+	"scope" VARCHAR(255) NOT NULL,
+	"created_at" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+# --- !Downs

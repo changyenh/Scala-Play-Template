@@ -1,0 +1,57 @@
+<configuration>
+    <!--<conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel" />-->
+
+    <property name="appName" value="BackendExample" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%green(%date{ISO8601})][%highlight(%-5level)][%cyan(${appName})][from %magenta(%-14logger{15})]: %message%n%xException{30}</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${application.home:-.}/logs/${appName}_%d{yyyyMMdd}.log</fileNamePattern>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder>
+            <pattern>[%green(%date{ISO8601})][%-5level][%cyan(${appName})][from %magenta(%-14logger)][in %thread]: %n%message%n%xException</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${application.home:-.}/logs/${appName}_Error_%d{yyyyMMdd}.log</fileNamePattern>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <encoder>
+            <pattern>[%green(%date{ISO8601})][%-5level][%cyan(${appName})][from %magenta(%-14logger)][in %thread]: %n%message%n%xException</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE" />
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="ERROR_FILE" />
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="ASYNC_FILE" />
+    </root>
+
+    <!--<logger name="service" level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="play" level="INFO">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="application" level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </logger>-->
+
+</configuration>
